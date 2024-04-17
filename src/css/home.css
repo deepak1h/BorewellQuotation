@@ -1,0 +1,82 @@
+
+body, html {
+  margin: 0px;
+  padding-left: 0px;
+}
+
+.home {
+
+    /* diagonal gradient */
+    /* background: repeating-linear-gradient(45deg, var(--c0), var(--c1) 10px, var(--c2) 10px, var(--c3) 20px); */
+    /* rhombus */
+    background: 
+    linear-gradient(45deg, var(--c0) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--c0) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--c1) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--c1) 75%);
+
+
+    /* small designes in bg */
+    /* background: 
+    linear-gradient(45deg, var(--c0) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--c0) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--c4) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--c4) 75%);
+    background-size: 60px 60px;
+    background-position: 0 0, 10px 0, 10px -10px, 0px 10px; */
+
+    /* 45degree lines */
+    /* background: repeating-linear-gradient(45deg, var(--c0), var(--c0) 10px, var(--c4) 10px, var(--c4) 20px); */
+
+    /* radial pattern */
+    /* 
+    background: radial-gradient(var(--c0) 15%, transparent 16%) 0 0,
+    radial-gradient(var(--c0) 15%, transparent 16%) 20px 20px;
+    background-color: var(--c4);
+    background-size: 100px 100px; */
+
+    /* saw pattern in bg */
+    /* background: 
+    linear-gradient(60deg, transparent 50%, var(--c0) 50%),
+    linear-gradient(-60deg, transparent 50%, var(--c0) 50%);
+    background-size: 20px 35px; */
+
+
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.container {
+  background-color: var(--c1);
+    border-radius: 50px;
+    width:70%;
+    height: 90%;
+    display: flex;
+    border: 20px double var(--cx);
+    /* overflow: scroll; */
+    }
+
+    .container::-webkit-scrollbar{
+      display: none; 
+  }
+  
+
+
+@media screen and (max-aspect-ratio:  9/15) {
+
+
+/* @media (max-width: 768px) { */
+
+
+    .container{
+
+      width:90%;
+      height: 95%;
+    }
+  
+}
+
+
+

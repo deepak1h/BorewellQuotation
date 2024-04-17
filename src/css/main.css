@@ -1,0 +1,20 @@
+.sidebar {
+  width: 265px;
+  display: flex;
+  background-color:var(--c0);
+  flex-direction: column;
+
+  border-radius: 30px;
+  border-bottom-right-radius: 0px;
+
+}
+
+
+/* Media query for screens with a maximum width of 768px (adjust as needed) */
+@media (max-width: 768px) {
+ 
+  .sidebar {
+    width: 80px;
+    }
+
+  }

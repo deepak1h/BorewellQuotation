@@ -1,0 +1,201 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.quotation-wrapper {
+    width: 210mm; /* A4 width */
+    min-height: 297mm; /* A4 height */
+    margin: 0 auto; /* Centering the wrapper */
+    background-color: #fff;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 5mm rgba(0,0,0,0.1);
+    padding: 10mm; /* Adjusted padding */
+    box-sizing: border-box; /* Include padding in width/height */
+}
+
+.quotation-header, .quotation-footer {
+    text-align: center;
+    /* border: 1px solid #ff0000; */
+}
+
+hr{
+    height: 3px;
+    border: 0px;
+    background-color: #0056b3;
+}
+
+.quotation-header h1 {
+    margin: 0;
+    color: #0056b3;
+    padding: 10px;
+}
+
+.company-info h2 {
+    color: #333;
+}
+
+.company-info{
+    /* border: 1px solid #8400ff; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.company-info-l{
+    /* border: 1px solid #fb0de7; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.company-from{
+    padding-top: 5mm;
+    text-align: left;
+}
+.company-to{
+    padding: 5mm 0px 5mm; 
+}
+
+.company-name{
+    font-weight: 700;
+    
+    
+}
+.company-contact{
+    font-size: 13px;
+}
+
+.company-info-r{
+    /* border: 1px solid #fb0da0; */
+    display: flex;
+    align-items:flex-start;
+}
+
+.logo img{
+    width: 40mm;
+    /* border: 1px solid #fb0da0; */
+    
+}
+.date-details{
+    /* border: 1px solid #11ff00; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+
+.contact{
+    text-align: right;
+    font-size: 11px;
+    /* border: 1px solid #fb0da0; */
+}
+
+.date{
+    text-align: right;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid #fb0da0; */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #c5c1c1;
+    font-size: 14px;
+    padding: 2px;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #cdd4fb; /* Light grey background */
+}
+
+/* Targeting odd rows */
+tr:nth-child(odd) {
+    background-color: #ffffff; /* White background */
+}
+
+th {
+    background-color: #0056b3;
+    color: white;
+}
+
+.grand-totals {
+    width: 30%;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* flex-direction: column; */
+    padding: 20px;
+}
+
+.total-box{
+    
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.signature{
+    width: 200px;
+    height: 100px; 
+    display: flex;
+    align-items: flex-end; 
+    justify-content: center; 
+    padding: 10px; 
+}
+
+.line-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.total-line strong {
+    color: #0056b3; /* Bold and blue color for grand total */
+    font-size: 16px;
+}
+
+.line-item span, .total-line strong {
+    font-family: 'Arial', sans-serif;
+    
+}
+
+
+
+tfoot td {
+    font-weight: bold;
+    background-color: #f0f0f8;
+}
+
+.quotation-footer span {
+    display: block;
+    font-size: 12px;
+    text-align: left;
+}
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        background: none;
+    }
+    .quotation-wrapper {
+        width: 100%;
+        margin: 0;
+        box-shadow: none;
+        padding: 15mm; /* Slightly reduced padding for print */
+    }
+}
