@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { jsPDF } from 'jspdf';
-// import '../css/main.css';
+import '../css/main.css';
 import html2canvas from 'html2canvas';
 import Logo from "../image/logo.png"
 import "../css/quotation.css"
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
   // States to store the input values
@@ -31,8 +32,12 @@ const Main = () => {
   };
 
   const generatePDF = () => {
-    const input = document.getElementById('quotation-wrapper');
-    html2canvas(input)
+    
+    const input = document.getElementsByClassName
+    ("quotation-wrapper")[0];
+
+    if (input){
+      html2canvas(input)
       .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF({
@@ -43,11 +48,23 @@ const Main = () => {
         pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
         pdf.save("quote.pdf");
       });
+    }
+    else{
+      console.log("not rendered")
+    }
+  };
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    navigate('/');
   };
 
   return (
     <div className='main'>
-      <h1>Get a Free Boring Quote</h1>
+      <div className='header'>
+        <h1 className='title'>Drilling Quotation</h1>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+      
       <form className="quotation-form" onSubmit={handleSubmit}>
 
         {/*       <form onSubmit={handleSubmit}>
@@ -59,7 +76,7 @@ const Main = () => {
       </form> */}
 
         <label htmlFor="name">Name:
-          <input type="text" id="name" name="name" required onChange={handleChange}/>
+          <input type="text" name="name"  required onChange={handleChange}/>
         </label>
 
         <br/>
@@ -90,6 +107,7 @@ const Main = () => {
         <br/>
 
         <label htmlFor="material">Material:
+        <div className="select-wrapper"></div>
           <select id="material" name="material" onChange={handleChange}>
             <option value="">Select Material</option>
             <option value="steel">Steel</option>
@@ -97,6 +115,7 @@ const Main = () => {
             <option value="pe">Polyethylene</option>
             {/* Add more options here */}
           </select>
+          <div></div>
         </label>
         <br/>
         

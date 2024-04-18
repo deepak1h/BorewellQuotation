@@ -9,11 +9,6 @@ body, html {
     /* diagonal gradient */
     /* background: repeating-linear-gradient(45deg, var(--c0), var(--c1) 10px, var(--c2) 10px, var(--c3) 20px); */
     /* rhombus */
-    background: 
-    linear-gradient(45deg, var(--c0) 25%, transparent 25%),
-    linear-gradient(-45deg, var(--c0) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, var(--c1) 75%),
-    linear-gradient(-45deg, transparent 75%, var(--c1) 75%);
 
 
     /* small designes in bg */
@@ -50,13 +45,15 @@ body, html {
 
 .container {
   background-color: var(--c1);
-    border-radius: 50px;
-    width:70%;
-    height: 90%;
+    height: 100%;
+    width: 80%;
     display: flex;
-    border: 20px double var(--cx);
-    /* overflow: scroll; */
+    border: 5px solid var(--cx);
+    padding: 50px;
+    overflow: scroll;
     }
+
+    
 
     .container::-webkit-scrollbar{
       display: none; 

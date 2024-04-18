@@ -1,13 +1,162 @@
-.sidebar {
-  width: 265px;
-  display: flex;
-  background-color:var(--c0);
-  flex-direction: column;
 
-  border-radius: 30px;
-  border-bottom-right-radius: 0px;
+.quotation-form{
 
+  /* border: 2px solid black; */
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+  height: 500px;
+  position: relative;
 }
+
+.header{
+  display: flex;
+  /* border: 2px solid black; */
+  justify-content: space-evenly;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.title{
+  width: 90%;
+  font-size: x-large;
+  text-align: center;
+} 
+
+
+
+
+
+
+
+.quotation-form input{
+
+  padding: 5px;
+  border: 1px solid var(--c4);
+  width: 250px;
+  outline-color: var(--c0);
+  transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  font-size: 16px;
+
+  transition: border-color 0.5s;
+  outline: none; 
+  
+
+   &::placeholder {
+    color: rgb(134, 184, 207);
+    font: var(--fnt);
+    font-size: 12px;
+    
+  } 
+}
+
+/* .quotation-form input:hover {
+  transform: scale(1.03);
+  transition:linear 0.3s;
+} */
+
+
+
+.quotation-form input:focus {
+  border-color: #0056b3;
+}
+
+ .quotation-form input {
+  font-family: inherit;
+  width: 70%;
+  border: 0;
+  border-bottom: 2px solid gray;
+  outline: 0;
+  font-size: 16px;
+  color: white;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.5s;
+
+} 
+
+
+
+
+
+
+
+.main button {
+  background-color: var(--c0);
+  color: var(--c4);
+  padding: 10px 30px;
+  width:fit-content;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.main button:hover {
+  transform: scale(1.1);
+} 
+
+
+/* Styling for the select element */
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 70%;
+}
+
+.main select {
+  width: 30%;
+  height: 40px;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  appearance: none; /* Remove default styling */
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Custom dropdown arrow using pseudo-elements */
+.select-wrapper::after {
+  content: '▼';
+  position: absolute;
+  top: 10;
+  right: 15px;
+  bottom: 0;
+  font-size: 12px;
+  color: #4f4848;
+  pointer-events: none; /* Prevents the arrow from being clickable */
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+/* Focus and hover effects */
+.main select:focus {
+  border-color: #0077FF; /* Highlight border when focused */
+  outline: none;
+}
+
+/* Optional: hover effect for better user experience */
+.main select:hover {
+  border-color: #5a02ff;
+}
+
+
+.main option {
+  padding: 10px;
+  background: rgb(173, 202, 245);
+  border: none;
+}
+
+
+
+
+
 
 
 /* Media query for screens with a maximum width of 768px (adjust as needed) */
