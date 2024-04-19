@@ -18,6 +18,62 @@ const Main = () => {
     material: ''
   });
 
+  const [quot, setQuot] = useState(0);
+  const [depthBreakdown, setDepthBreakdown] = useState([]);
+
+  const calculateDepthBreakdown = () => {
+    const depthData = [
+      { depth: '0 to 100 ft', rate: 40 },
+      { depth: '101 to 200 ft', rate: 50 },
+      { depth: '201 to 300 ft', rate: 60 },
+      { depth: '301 to 400 ft', rate: 80 },
+      { depth: '401 to 500 ft', rate: 100 },
+      { depth: '501 to 600 ft', rate: 130 },
+      { depth: '601 to 700 ft', rate: 160 },
+      { depth: '701 to 800 ft', rate: 200 },
+      { depth: '801 to 900 ft', rate: 240 },
+      { depth: '901 to 1000 ft', rate: 290 },
+      { depth: '1001 to 1100 ft', rate: 340 },
+      { depth: '1101 to 1200 ft', rate: 400 },
+      { depth: '1201 to 1300 ft', rate: 450 },
+      { depth: '1301 to 1400 ft', rate: 530 },
+      { depth: '1401 to 1500 ft', rate: 600 },
+      { depth: '1501 to 1600 ft', rate: 680 },
+      { depth: '1601 to 1700 ft', rate: 780 },
+      { depth: '1701 to 1800 ft', rate: 880 },
+      { depth: '1801 to 1900 ft', rate: 990 },
+      { depth: '1901 to 2000 ft', rate: 1080 },
+    ];
+
+    let remainingDepth = formData.depth;
+    const breakdown = [];
+
+    for (const item of depthData) {
+      if (remainingDepth <= 0) break;
+
+      const depthRange = item.depth;
+      const rate = item.rate;
+      const quantity = Math.min(remainingDepth, 100);
+      const total = rate * quantity;
+
+      breakdown.push({ depth: depthRange, rate, quantity, total });
+      remainingDepth -= quantity;
+    }
+
+    setDepthBreakdown(breakdown);
+    calculateTotal(breakdown);
+  };
+
+  // Function to calculate total
+  const calculateTotal = (breakdown) => {
+    const total = breakdown.reduce((acc, item) => acc + item.total, 0);
+    setQuot(total);
+  };
+
+  React.useEffect(() => {
+  calculateDepthBreakdown();
+  }, [formData.depth]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -191,7 +247,7 @@ const Main = () => {
                         <th>Total</th>
                     </tr>
                 </thead>
-                <tbody>
+                {/* <tbody>
                     <tr>
                         <td>000 to 100 ft</td>
                         <td>100</td>
@@ -324,7 +380,24 @@ const Main = () => {
                         <td colSpan="3">Total</td>
                         <td>₹764000 </td>
                     </tr>
-                </tfoot>
+                </tfoot> */}
+
+                <tbody>
+                  {depthBreakdown.map((item, index) => (
+                      <tr key={index}>
+                          <td>{item.depth}</td>
+                          <td>{item.quantity}</td>
+                          <td>{item.rate}</td>
+                          <td>{item.total}</td>
+                      </tr>
+                  ))}
+              </tbody>
+              <tfoot>
+                  <tr>
+                      <td colspan="3">Total</td>
+                      <td>${quot}</td>
+                  </tr>
+              </tfoot>
             </table>
         </div>
 
