@@ -21,14 +21,7 @@
   width: 90%;
   font-size: x-large;
   text-align: center;
-} 
-
-
-
-
-
-
-
+}
 .quotation-form input{
 
   padding: 5px;
@@ -42,7 +35,6 @@
   transition: border-color 0.5s;
   outline: none; 
   
-
    &::placeholder {
     color: rgb(134, 184, 207);
     font: var(--fnt);
@@ -50,13 +42,6 @@
     
   } 
 }
-
-/* .quotation-form input:hover {
-  transform: scale(1.03);
-  transition:linear 0.3s;
-} */
-
-
 
 .quotation-form input:focus {
   border-color: #0056b3;
@@ -153,12 +138,6 @@
   border: none;
 }
 
-
-
-
-
-
-
 /* Media query for screens with a maximum width of 768px (adjust as needed) */
 @media (max-width: 768px) {
  
@@ -167,3 +146,5 @@
     }
 
   }
+
+ 

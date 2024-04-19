@@ -26,13 +26,14 @@ function Login() {
       <div className="formWrapper">
       <div className='icon'>
           <img src={Logo} alt="" />
-          <span className="logo">Borewell Motor</span>
         </div>
         <div className="boddy">
           <span className="title">Login</span>
           <form onSubmit={handleLogin}>
-            <input required type="email" placeholder="email" />
-            <input required type="password" placeholder="password" />
+            <input className='question' required type="text" id='email'/>
+            <label for="email"><span>What's your email?</span></label>
+            <input required type="password" id="password" className='question' />
+            <label for="password"><span>password?</span></label>
             <button>Sign in</button>
           </form>
         </div>

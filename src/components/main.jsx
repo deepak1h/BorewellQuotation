@@ -107,7 +107,7 @@ const Main = () => {
         <br/>
 
         <label htmlFor="material">Material:
-        <div className="select-wrapper"></div>
+        <div className="select-wrapper">
           <select id="material" name="material" onChange={handleChange}>
             <option value="">Select Material</option>
             <option value="steel">Steel</option>
@@ -115,7 +115,7 @@ const Main = () => {
             <option value="pe">Polyethylene</option>
             {/* Add more options here */}
           </select>
-          <div></div>
+          </div>
         </label>
         <br/>
         
