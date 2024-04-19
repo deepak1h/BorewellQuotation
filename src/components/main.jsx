@@ -17,7 +17,12 @@ const Main = () => {
     depth: '',
     material: ''
   });
-
+  const currentDate = new Date().toLocaleString('en-US', {
+    timeZone: 'Asia/Kolkata', // Set the time zone to IST
+  });
+  
+ // console.log(currentDate);
+  
   const [quot, setQuot] = useState(0);
   const [depthBreakdown, setDepthBreakdown] = useState([]);
 
@@ -221,7 +226,7 @@ const Main = () => {
                     <br/>+91-9542969290
                 </div>
                 <div className="date">
-                    <span>Date: April 13, 2024</span>
+                    <span>Date: {currentDate}</span>
                     <span>Quotation #: 001234</span>
                 </div>
             </div>
