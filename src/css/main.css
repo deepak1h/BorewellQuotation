@@ -1,12 +1,34 @@
 
+
+.main-box{
+  display: flex;
+  width: 1500px;
+}
+
+.preview{
+  transform: scale(0.7);
+  /* border: 4px solid rgb(0, 0, 0); */
+  transform-origin: top left; 
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  margin-left: 100px;
+  border: 1px solid rgb(218, 214, 251);
+  border-radius: 25px;
+  overflow: hidden;
+  
+}
+
+
 .quotation-form{
 
-  /* border: 2px solid black; */
   padding: 20px;
-  justify-content: space-between;
-  align-items: center;
-  height: 500px;
-  position: relative;
+  width: 400px;
+  height: 400px;
+  background-color: #ffffff;
+  box-shadow: #0056b3 ;
+  border-radius: 25px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  margin-left: 100px;
+
 }
 
 .header{
@@ -18,51 +40,67 @@
 }
 
 .title{
-  width: 90%;
+  width: 30%;
   font-size: x-large;
   text-align: center;
 }
+
+
 .quotation-form input{
 
   padding: 5px;
-  border: 1px solid var(--c4);
-  width: 250px;
-  outline-color: var(--c0);
-  transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
-
+  border: 1px solid var(--c2);
   font-size: 16px;
 
-  transition: border-color 0.5s;
-  outline: none; 
-  
    &::placeholder {
-    color: rgb(134, 184, 207);
+    color: var(--c1);
     font: var(--fnt);
     font-size: 12px;
     
   } 
 }
 
-.quotation-form input:focus {
+ .quotation-form input:focus {
   border-color: #0056b3;
 }
 
  .quotation-form input {
   font-family: inherit;
-  width: 70%;
   border: 0;
-  border-bottom: 2px solid gray;
+  color: #012b58;
+  font-weight: 500;
+  border-bottom: 2px solid rgb(176, 177, 192);
   outline: 0;
   font-size: 16px;
-  color: white;
   padding: 7px 0;
-  background: transparent;
   transition: border-color 0.5s;
-
 } 
 
 
+.form-block1{
+  /* border: 2px solid rgb(205, 213, 250); */
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  padding: 10px;
+  justify-content: space-between;
+  border-radius: 5px;
+}
 
+.form-block2{
+  /* border: 2px solid rgb(184, 209, 239); */
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form-block3{
+  /* border: 2px solid rgb(184, 209, 239); */
+  display: flex;
+  padding: 10px;
+  justify-content:space-between;
+  border-radius: 5px;
+}
 
 
 
@@ -83,8 +121,7 @@
   transform: scale(1.1);
 } 
 
-
-/* Styling for the select element */
+/* 
 .select-wrapper {
   position: relative;
   display: inline-block;
@@ -99,12 +136,11 @@
   color: #333;
   border: 1px solid #ccc;
   border-radius: 5px;
-  appearance: none; /* Remove default styling */
+  appearance: none;
   background-color: white;
   cursor: pointer;
 }
 
-/* Custom dropdown arrow using pseudo-elements */
 .select-wrapper::after {
   content: '▼';
   position: absolute;
@@ -113,38 +149,76 @@
   bottom: 0;
   font-size: 12px;
   color: #4f4848;
-  pointer-events: none; /* Prevents the arrow from being clickable */
+  pointer-events: none; 
   background-color: white;
   align-items: center;
   justify-content: center;
   display: flex;
 }
 
-/* Focus and hover effects */
 .main select:focus {
-  border-color: #0077FF; /* Highlight border when focused */
+  border-color: #0077FF; 
   outline: none;
 }
 
-/* Optional: hover effect for better user experience */
 .main select:hover {
   border-color: #5a02ff;
-}
+} */
 
 
-.main option {
+/* .main option {
   padding: 10px;
   background: rgb(173, 202, 245);
   border: none;
-}
+} */
 
 /* Media query for screens with a maximum width of 768px (adjust as needed) */
-@media (max-width: 768px) {
+@media screen {
+
+  @media (max-width: 768px) {
  
-  .sidebar {
-    width: 80px;
+    .sidebar {
+      width: 80px;
+      }
+  
     }
+  
+}
+
+@media print {
+
+  body * {
+    visibility: hidden;
+}
+
+.preview *{
+  visibility: visible;
+}
+
+
+  .preview{
+      visibility:visible;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 210mm; /* Reset width for printing */
+      height: 297mm;
+      box-shadow: none; /* Remove shadow for printing */
+      transform: none; 
+      margin: 0;  /* remove default margins */
+      padding: 0; /* adjust padding as needed */
 
   }
+  body {
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+}
+
+
+
+
+  
 
  
