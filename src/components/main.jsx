@@ -4,6 +4,34 @@ import Logo from "../image/logo.png"
 import "../css/quotation.css"
 import { useNavigate } from 'react-router-dom';
 
+function encodeDateTime(today) {
+  const dateTimeParts = today.split(",")[0].split("/");
+  const timeParts = today.split(",")[1].trim().split(":");
+
+  const day = dateTimeParts[1].padStart(2, '0');
+  const month = dateTimeParts[0].padStart(2, '0');
+  const year = dateTimeParts[2].slice(-2);
+  const hours = timeParts[0].padStart(2, '0');
+  const minutes = timeParts[1].padStart(2, '0');
+
+  return `KM-${year}${hours[0]}${month[0]}${minutes[0]}${day[0]}${month[1]}${hours[1]}${day[1]}${minutes[1]}`;
+}
+
+function decodeDateTime(encoded) {
+  const prefix = encoded.slice(0, 3); // Extract 'KM-'
+  if (prefix !== 'KM-') throw new Error('Invalid format');
+
+  const encodedPart = encoded.slice(3);
+  const year = '20' + encodedPart.slice(0, 2);
+  const hour = encodedPart[2] + encodedPart[7];
+  const minute = encodedPart[4] + encodedPart[12];
+  const month = encodedPart[3] + encodedPart[8];
+  const day = encodedPart[5] + encodedPart[10];
+
+  return new Date(`${year}-${month}-${day}T${hour}:${minute}:00`);
+}
+
+let today = new Date().toLocaleString();
 
 const handlePrint = () => {
   window.print();
@@ -11,7 +39,7 @@ const handlePrint = () => {
 };
 
 const Main = () => {
-  // States to store the input values
+
   const [formData, setFormData] = useState({
     name: '',
     address: '',
@@ -75,6 +103,7 @@ const Main = () => {
   };
 
   React.useEffect(() => {
+  today = new Date().toLocaleString();
   calculateDepthBreakdown();
   }, [formData.depth]);
 
@@ -85,34 +114,6 @@ const Main = () => {
       [name]: value
     }));
   };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   generatePDF();
-  // };
-
-  // const generatePDF = () => {
-    
-  //   const input = document.getElementsByClassName
-  //   ("quotation-wrapper")[0];
-
-  //   if (input){
-  //     html2canvas(input)
-  //     .then((canvas) => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       const pdf = new jsPDF({
-  //         orientation: 'p',
-  //         unit: 'px',
-  //         format: [canvas.width, canvas.height]
-  //       });
-  //       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-  //       pdf.save("quote.pdf");
-  //     });
-  //   }
-  //   else{
-  //     console.log("not rendered")
-  //   }
-  // };
 
   
   const navigate = useNavigate();
@@ -132,7 +133,7 @@ const Main = () => {
         <form className="quotation-form" >
           <div className='form-block1'>
             <label htmlFor="name">Client Name</label>
-              <input type="text" name="name"  required onChange={handleChange}/>
+              <input type="text" name="name" placeholder='Ex. Company ame' required onChange={handleChange}/>
             
             <label htmlFor="address">Client's Address</label>
               <input type="text" id="address" name="address" onChange={handleChange}/>
@@ -214,8 +215,8 @@ const Main = () => {
                         <br/>+91-9542969290
                     </div>
                     <div className="date">
-                        <span>Date: April 13, 2024</span>
-                        <span>Quotation #: 001234</span>
+                        <span>Date: {today}</span>
+                        <span>Quotation : {encodeDateTime(today)}</span>
                     </div>
                 </div>
             </div>
@@ -240,141 +241,6 @@ const Main = () => {
                             <th>Total</th>
                         </tr>
                     </thead>
-                    {/* <tbody>
-                        <tr>
-                            <td>000 to 100 ft</td>
-                            <td>100</td>
-                            <td>₹40 </td>
-                            <td>₹4000 </td>
-                        </tr>
-                        <tr>
-                            <td>101 to 200 ft</td>
-                            <td>100</td>
-                            <td>₹50 </td>
-                            <td>₹5000 </td>
-                        </tr>
-                        <tr>
-                            <td>201 to 300 ft</td>
-                            <td>100</td>
-                            <td>₹60 </td>
-                            <td>₹6000 </td>
-                        </tr>
-                        <tr>
-                            <td>301 to 400 ft</td>
-                            <td>100</td>
-                            <td>₹80 </td>
-                            <td>₹8000 </td>
-                        </tr>
-                        <tr>
-                            <td>401 to 500 ft</td>
-                            <td>100</td>
-                            <td>₹100 </td>
-                            <td>₹10000 </td>
-                        </tr>
-                        <tr>
-                            <td>501 to 600 ft</td>
-                            <td>100</td>
-                            <td>₹130 </td>
-                            <td>₹13000 </td>
-                        </tr>
-                        <tr>
-                            <td>601 to 700 ft </td>
-                            <td>100</td>
-                            <td>₹160 </td>
-                            <td>₹16000 </td>
-                        </tr>
-                        <tr>
-                            <td>701 to 800 ft</td>
-                            <td>100</td>
-                            <td>₹200 </td>
-                            <td>₹20000 </td>
-                        </tr>
-                        <tr>
-                            <td>801 to 900 ft</td>
-                            <td>100</td>
-                            <td>₹240 </td>
-                            <td>₹24000 </td>
-                        </tr>
-                        <tr>
-                            <td>901 to 1000 ft</td>
-                            <td>100</td>
-                            <td>₹290 </td>
-                            <td>₹29000 </td>
-                        </tr>
-                        <tr>
-                            <td>1001 to 1100 ft</td>
-                            <td>100</td>
-                            <td>₹340 </td>
-                            <td>₹34000 </td>
-                        </tr>
-                        <tr>
-                            <td>1101 to 1200 ft</td>
-                            <td>100</td>
-                            <td>₹400 </td>
-                            <td>₹40000 </td>
-                        </tr>
-                        <tr>
-                            <td>1201 to 1300 ft</td>
-                            <td>100</td>
-                            <td>₹460 </td>
-                            <td>₹46000 </td>
-                        </tr>
-                        <tr>
-                            <td>1301 to 1400 ft</td>
-                            <td>100</td>
-                            <td>₹530 </td>
-                            <td>₹53000 </td>
-                        </tr>
-                        <tr>
-                            <td>1401 to 1500 ft</td>
-                            <td>100</td>
-                            <td>₹600 </td>
-                            <td>₹60000 </td>
-                        </tr>
-                        <tr>
-                            <td>1501 to 1600 ft</td>
-                            <td>100</td>
-                            <td>₹680 </td>
-                            <td>₹68000 </td>
-                        </tr>
-                        <tr>
-                            <td>1601 to 1700 ft </td>
-                            <td>100</td>
-                            <td>₹780 </td>
-                            <td>₹78000 </td>
-                        </tr>
-                        <tr>
-                            <td>1701 to 1800 ft</td>
-                            <td>100</td>
-                            <td>₹880 </td>
-                            <td>₹88000 </td>
-                        </tr>
-                        <tr>
-                            <td>1801 to 1900 ft</td>
-                            <td>100</td>
-                            <td>₹980 </td>
-                            <td>₹98000 </td>
-                        </tr>
-                        <tr>
-                            <td>1901 to 1950 ft</td>
-                            <td>50</td>
-                            <td>₹1080 </td>
-                            <td>₹54000 </td>
-                        </tr>
-                        <tr>
-                            <td>Mic. </td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>₹10000 </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colSpan="3">Total</td>
-                            <td>₹764000 </td>
-                        </tr>
-                    </tfoot> */}
-
                     <tbody>
                       {depthBreakdown.map((item, index) => (
                           <tr key={index}>

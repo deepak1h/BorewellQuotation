@@ -25,7 +25,7 @@
   box-shadow: #0056b3 ;
   border-radius: 25px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-
+  overflow: hidden;
 
 }
 
@@ -177,9 +177,37 @@
 
   @media (max-width: 768px) {
  
-    .sidebar {
-      width: 80px;
-      }
+    .main-box{
+      display: flex;
+      flex-direction: column;
+      row-gap: 70px;
+      align-items: center;
+    }
+    
+    .preview{
+      transform: scale(0.7);
+      transform-origin: top; 
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+      margin-left: 0px;
+      border: 1px solid rgb(218, 214, 251);
+      border-radius: 25px;
+      box-shadow: #0056b3;
+      overflow: hidden;
+    }
+    
+    
+    .quotation-form{
+    
+      padding: 20px;
+      width: 500px;
+      height: 400px;
+      background-color: #ffffff;
+      box-shadow: #0056b3 ;
+      border-radius: 25px;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    
+    }
   
     }
   
@@ -207,7 +235,10 @@
       transform: none; 
       margin: 0;  /* remove default margins */
       padding: 0; /* adjust padding as needed */
-      transform: scale(1.5);
+      transform: scale(1.46);
+      box-shadow: none;
+      border: none;
+      border-radius: 0px;
 
   }
   body {
