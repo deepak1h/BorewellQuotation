@@ -133,32 +133,32 @@ const Main = () => {
         <form className="quotation-form" >
           <div className='form-block1'>
             <label htmlFor="name">Client Name</label>
-              <input type="text" name="name" placeholder='Ex. Company ame' required onChange={handleChange}/>
+              <input type="text" name="name" placeholder='Eg. Company Name' required onChange={handleChange}/>
             
             <label htmlFor="address">Client's Address</label>
-              <input type="text" id="address" name="address" onChange={handleChange}/>
+              <input type="text" placeholder='Eg. 14 street, Hyderabad 500001'  id="address" name="address" onChange={handleChange}/>
             
           </div>
           <div className='form-block2'>
           <label htmlFor="email">Email id:
-            <input type="email" id="email" name="email" required onChange={handleChange}/>
+            <input type="email" placeholder='Ex. xyz@gmail.com'  id="email" name="email" required onChange={handleChange}/>
             </label>
           
           <label htmlFor="mobile">Mobile:
-            <input type="number" id="mobile" name="mobile" required onChange={handleChange}/>
+            <input type="number" id="mobile" name="mobile" placeholder='Ex. 911111XX80' required onChange={handleChange}/>
             </label>
           </div>
           <div className='form-block3'>
           <label htmlFor="diameter">Diameter (in inches):
-            <input type="number" id="diameter" name="diameter" required onChange={handleChange}/>
+            <input type="number" id="diameter" name="diameter" placeholder='4 to 24 inch'  required onChange={handleChange}/>
           </label>
 
           <label htmlFor="depth">Depth (in feet):
-            <input type="number" id="depth" name="depth" required onChange={handleChange}/>
+            <input type="number" placeholder='1 - 2000 ft'  id="depth" name="depth" required onChange={handleChange}/>
           </label>
           </div>
           <div className='form-block3'>
-          <label htmlFor="material">Material:
+          <label htmlFor="material">
           <div className="select-wrapper">
             <select  id="material" name="material" onChange={handleChange}>
               <option value="">Select Material</option>

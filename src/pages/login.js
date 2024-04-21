@@ -24,7 +24,7 @@ function Login() {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-      <div className='icon'>
+        <div className='icon'>
           <img src={Logo} alt="" />
         </div>
         <div className="boddy">

@@ -53,9 +53,9 @@
   font-size: 16px;
 
    &::placeholder {
-    color: var(--c1);
+    color:#b7c4d1;
     font: var(--fnt);
-    font-size: 12px;
+    font-size: 14px;
     
   } 
 }
@@ -83,23 +83,23 @@
   height: fit-content;
   flex-direction: column;
   padding: 10px;
+  gap: 10px;
   justify-content: space-between;
-  border-radius: 5px;
 }
 
 .form-block2{
   /* border: 2px solid rgb(184, 209, 239); */
   display: flex;
   padding: 10px;
-  border-radius: 5px;
+
 }
 
 .form-block3{
   /* border: 2px solid rgb(184, 209, 239); */
   display: flex;
-  padding: 10px;
+  padding: 15px;
   justify-content:space-between;
-  border-radius: 5px;
+
 }
 
 
@@ -108,7 +108,8 @@
 .main button {
   background-color: #0056b3;
   color: white;
-  padding: 10px 30px;
+  height: 40px;
+  padding: 10px 20px;
   width:fit-content;
   font-weight: bold;
   border: none;
@@ -121,7 +122,7 @@
   transform: scale(1.1);
 } 
 
-/* 
+
 .select-wrapper {
   position: relative;
   display: inline-block;
@@ -129,23 +130,24 @@
 }
 
 .main select {
-  width: 30%;
   height: 40px;
-  padding: 8px 12px;
+  padding: 5px 10px;
   font-size: 16px;
   color: #333;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 25px;
   appearance: none;
   background-color: white;
   cursor: pointer;
+  border-radius: 25px;
+  box-shadow: 5px 5px 15px #7699bf;
 }
 
-.select-wrapper::after {
+/* .select-wrapper::after {
   content: '▼';
   position: absolute;
-  top: 10;
-  right: 15px;
+  top: 0;
+  right: 0;
   bottom: 0;
   font-size: 12px;
   color: #4f4848;
@@ -154,23 +156,25 @@
   align-items: center;
   justify-content: center;
   display: flex;
-}
+} */
 
 .main select:focus {
-  border-color: #0077FF; 
+  border-color: #0056b3; 
   outline: none;
 }
 
 .main select:hover {
-  border-color: #5a02ff;
-} */
+
+  transform: scale(1.1);
+  border: 3px solid #0056b3;
+} 
 
 
-/* .main option {
-  padding: 10px;
+.main option {
+
   background: rgb(173, 202, 245);
-  border: none;
-} */
+
+}
 
 /* Media query for screens with a maximum width of 768px (adjust as needed) */
 @media screen {
