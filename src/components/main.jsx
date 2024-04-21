@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import { jsPDF } from 'jspdf';
 import '../css/main.css';
-import html2canvas from 'html2canvas';
 import Logo from "../image/logo.png"
 import "../css/quotation.css"
 import { useNavigate } from 'react-router-dom';
 
 
 const handlePrint = () => {
-  const printContent = document.getElementById('preview');
-
   window.print();
 
 };
@@ -90,33 +86,35 @@ const Main = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    generatePDF();
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   generatePDF();
+  // };
 
-  const generatePDF = () => {
+  // const generatePDF = () => {
     
-    const input = document.getElementsByClassName
-    ("quotation-wrapper")[0];
+  //   const input = document.getElementsByClassName
+  //   ("quotation-wrapper")[0];
 
-    if (input){
-      html2canvas(input)
-      .then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF({
-          orientation: 'p',
-          unit: 'px',
-          format: [canvas.width, canvas.height]
-        });
-        pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-        pdf.save("quote.pdf");
-      });
-    }
-    else{
-      console.log("not rendered")
-    }
-  };
+  //   if (input){
+  //     html2canvas(input)
+  //     .then((canvas) => {
+  //       const imgData = canvas.toDataURL('image/png');
+  //       const pdf = new jsPDF({
+  //         orientation: 'p',
+  //         unit: 'px',
+  //         format: [canvas.width, canvas.height]
+  //       });
+  //       pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+  //       pdf.save("quote.pdf");
+  //     });
+  //   }
+  //   else{
+  //     console.log("not rendered")
+  //   }
+  // };
+
+  
   const navigate = useNavigate();
   const handleLogout = () => {
     navigate('/');
@@ -131,7 +129,7 @@ const Main = () => {
 
       <div className='main-box'>
       
-        <form className="quotation-form" onSubmit={handleSubmit}>
+        <form className="quotation-form" >
           <div className='form-block1'>
             <label htmlFor="name">Client Name</label>
               <input type="text" name="name"  required onChange={handleChange}/>
@@ -225,7 +223,7 @@ const Main = () => {
         <hr/>
         <div className="order-desc">
             <span className="company-name">Order Description:</span>
-            <span>we want to make a borewell of depth 1950ft.</span>
+            <span> we want to make a borewell of depth {formData.depth} ft, diameter {formData.diameter} inch.</span>
 
         </div>
 
@@ -390,7 +388,7 @@ const Main = () => {
                   <tfoot>
                       <tr>
                           <td colspan="3">Total</td>
-                          <td>${quot}</td>
+                          <td>₹{quot}</td>
                       </tr>
                   </tfoot>
                 </table>
@@ -402,15 +400,15 @@ const Main = () => {
             <div className="grand-totals">
                 <div className="line-item">
                     <span>Total</span>
-                    <span>₹764000 </span>
+                    <span>₹{quot} </span>
                 </div>
                 <div className="line-item">
                     <span>GST (18%)</span>
-                    <span>₹137520 </span>
+                    <span>₹{quot*0.18} </span>
                 </div>
                 <div className="line-item total-line">
-                    <strong>Grand Total</strong>
-                    <strong>₹901520 </strong>
+                    <strong><span>Grand Total</span>
+                    <span>₹{quot+quot*0.18} </span> </strong>
                 </div>
             </div>
             <div className="signature">signature</div>

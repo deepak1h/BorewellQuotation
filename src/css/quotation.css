@@ -2,7 +2,6 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
     color: #333;
 }
 
@@ -10,8 +9,7 @@ body {
     width: 210mm; /* A4 width */
     min-height: 297mm; /* A4 height */
     margin: 0 auto; /* Centering the wrapper */
-    background-color: #fff;
-    box-shadow: 0 0 5mm rgba(0,0,0,0.1);
+    background-color: #ffffff;
     padding: 10mm; /* Adjusted padding */
     box-sizing: border-box; /* Include padding in width/height */
 }
@@ -135,18 +133,24 @@ th {
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .total-box{
-    
-    display: flex;
-    justify-content: space-between;
 
+    display: flex;
+    
+    justify-content: space-between;
 }
 
 .signature{
     width: 200px;
-    height: 100px; 
+    height: 90px; 
     display: flex;
     align-items: flex-end; 
     justify-content: center; 
@@ -155,21 +159,24 @@ th {
 
 .line-item {
     display: flex;
+    width: 100%;
+
+    margin-bottom: 5px;
     justify-content: space-between;
-    margin-bottom: 10px;
 }
 
 .total-line strong {
-    color: #0056b3; /* Bold and blue color for grand total */
+    width: 100%;
+    color: #0056b3; 
     font-size: 16px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .line-item span, .total-line strong {
     font-family: 'Arial', sans-serif;
     
 }
-
-
 
 tfoot td {
     font-weight: bold;
@@ -192,6 +199,6 @@ tfoot td {
         width: 100%;
         margin: 0;
         box-shadow: none;
-        padding: 15mm; /* Slightly reduced padding for print */
+        padding: 5mm; /* Slightly reduced padding for print */
     }
 }
