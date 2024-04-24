@@ -45,36 +45,40 @@ const Main = () => {
     address: '',
     email: '',
     mobile: '',
-    diameter: '',
+    baseamount: '',
     depth: '',
-    material: ''
+    material: '',
+    baseamount:''
+
   });
 
   const [quot, setQuot] = useState(0);
   const [depthBreakdown, setDepthBreakdown] = useState([]);
 
   const calculateDepthBreakdown = () => {
+    const baseAmount = parseInt(formData.baseamount); // Convert base amount to integer
+
     const depthData = [
-      { depth: '0 to 100 ft', rate: 40 },
-      { depth: '101 to 200 ft', rate: 50 },
-      { depth: '201 to 300 ft', rate: 60 },
-      { depth: '301 to 400 ft', rate: 80 },
-      { depth: '401 to 500 ft', rate: 100 },
-      { depth: '501 to 600 ft', rate: 130 },
-      { depth: '601 to 700 ft', rate: 160 },
-      { depth: '701 to 800 ft', rate: 200 },
-      { depth: '801 to 900 ft', rate: 240 },
-      { depth: '901 to 1000 ft', rate: 290 },
-      { depth: '1001 to 1100 ft', rate: 340 },
-      { depth: '1101 to 1200 ft', rate: 400 },
-      { depth: '1201 to 1300 ft', rate: 450 },
-      { depth: '1301 to 1400 ft', rate: 530 },
-      { depth: '1401 to 1500 ft', rate: 600 },
-      { depth: '1501 to 1600 ft', rate: 680 },
-      { depth: '1601 to 1700 ft', rate: 780 },
-      { depth: '1701 to 1800 ft', rate: 880 },
-      { depth: '1801 to 1900 ft', rate: 990 },
-      { depth: '1901 to 2000 ft', rate: 1080 },
+      { depth: '0 to 100 ft', rate: baseAmount },
+      { depth: '101 to 200 ft', rate: baseAmount+10 },
+      { depth: '201 to 300 ft', rate: baseAmount+20 },
+      { depth: '301 to 400 ft', rate: baseAmount+40 },
+      { depth: '401 to 500 ft', rate: baseAmount+60 },
+      { depth: '501 to 600 ft', rate: baseAmount+90},
+      { depth: '601 to 700 ft', rate: baseAmount+120 },
+      { depth: '701 to 800 ft', rate: baseAmount+160},
+      { depth: '801 to 900 ft', rate: baseAmount+200 },
+      { depth: '901 to 1000 ft', rate: baseAmount+250},
+      { depth: '1001 to 1100 ft', rate: baseAmount+300 },
+      { depth: '1101 to 1200 ft', rate: baseAmount+360 },
+      { depth: '1201 to 1300 ft', rate: baseAmount+420 },
+      { depth: '1301 to 1400 ft', rate: baseAmount+490 },
+      { depth: '1401 to 1500 ft', rate: baseAmount+560 },
+      { depth: '1501 to 1600 ft', rate: baseAmount+640 },
+      { depth: '1601 to 1700 ft', rate: baseAmount+740 },
+      { depth: '1701 to 1800 ft', rate: baseAmount+840 },
+      { depth: '1801 to 1900 ft', rate: baseAmount+940 },
+      { depth: '1901 to 2000 ft', rate: baseAmount },
     ];
 
     let remainingDepth = formData.depth;
@@ -105,7 +109,7 @@ const Main = () => {
   React.useEffect(() => {
   today = new Date().toLocaleString();
   calculateDepthBreakdown();
-  }, [formData.depth]);
+  }, [formData.depth,formData.baseamount]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -149,13 +153,19 @@ const Main = () => {
             </label>
           </div>
           <div className='form-block3'>
-          <label htmlFor="diameter">Diameter (in inches):
-            <input type="number" id="diameter" name="diameter" placeholder='4 to 24 inch'  required onChange={handleChange}/>
+          <label htmlFor="baseamount">baseamount (₹):
+            <input type="number" id="baseamount" name="baseamount" placeholder='40'  required onChange={handleChange}/>
           </label>
 
           <label htmlFor="depth">Depth (in feet):
             <input type="number" placeholder='1 - 2000 ft'  id="depth" name="depth" required onChange={handleChange}/>
           </label>
+
+          //add baseamount acc
+          <label htmlFor="baseamount">BaseAmount():
+            <input type="text" placeholder='Enter Base Amount'  id="baseamount" name="baseamount" onChange={handleChange}/>
+          </label>
+          
           </div>
           <div className='form-block3'>
           <label htmlFor="material">
@@ -224,7 +234,7 @@ const Main = () => {
         <hr/>
         <div className="order-desc">
             <span className="company-name">Order Description:</span>
-            <span> we want to make a borewell of depth {formData.depth} ft, diameter {formData.diameter} inch.</span>
+            <span> we want to make a borewell of depth {formData.depth} ft, baseamount {formData.baseamount} inch.</span>
 
         </div>
 
