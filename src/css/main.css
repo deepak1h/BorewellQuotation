@@ -1,11 +1,11 @@
-.main{
-  border: 1px solid red;
-}
+/* .main{
+
+} */
 
 .main-box{
   display: flex;
   justify-content: space-around;
-  border: 1px solid red;
+
 }
 
 .preview{
@@ -190,15 +190,10 @@
 @media screen {
 
   @media (max-width: 768px) {
-
-    .main{
-      border: 1px solid red;
-    }
  
     .main-box{
       display: flex;
       width: 700px;
-      border: 1px solid red;
       flex-direction: column;
       row-gap: 70px;
       align-items: center;

@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext"; // Adjust the import path as needed
 
 const PrivateRoute = ({ children }) => {
-  const { currentUser, loading, setLoading} = useAuth();
+  const { currentUser, loading} = useAuth();
 
   console.log("lol", currentUser, loading)
   if(loading){

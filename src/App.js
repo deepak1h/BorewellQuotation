@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/login';
 import Home from './pages/home';
 import Adminlogin from './pages/adminlogin';
 import AdminHome from './pages/adminhome';
 import Register from './pages/register';
-import { AuthProvider, useAuth } from "./AuthContext";
+import { AuthProvider } from "./AuthContext";
 import PrivateRoute from "./PrivateRoute"; 
 
 function App() {

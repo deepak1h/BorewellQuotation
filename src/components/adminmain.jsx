@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
-import "../css/adminmain.css"; // Create this CSS file to style the admin portal
+import { db, auth } from '../firebase';
+import "../css/adminmain.css"; 
+import { signOut } from 'firebase/auth'
 
 const Adminmain = () => {
   const [quotations, setQuotations] = useState([]);
@@ -34,6 +35,7 @@ const Adminmain = () => {
   return (
     <div className="admin">
       <h1>Admin Portal</h1>
+      <button onClick={()=>signOut(auth)}>Logout</button>
       {Object.keys(groupedQuotations).map(date => (
         <div key={date} className="date-group">
           <h2>{date}</h2>

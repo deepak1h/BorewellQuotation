@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import '../css/main.css';
 import Logo from "../image/logo.png"
 import "../css/quotation.css"
-import { useNavigate } from 'react-router-dom';
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import { jsPDF } from 'jspdf';
-import 'firebase/firestore';
-import 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db, storage, auth } from '../firebase';
-import html2canvas from 'html2canvas';
 import { signOut } from 'firebase/auth'
+import html2pdf from 'html2pdf.js';
 
 
 function encodeDateTime(today) {
@@ -27,24 +23,9 @@ function encodeDateTime(today) {
   return `RB-${year}${hours[1]}${seconds[0]}${minutes[1]}${day[0]}${month[1]}${seconds[1]}${day[1]}${minutes[1]}`;
 }
 
-// function decodeDateTime(encoded) {
-//   const prefix = encoded.slice(0, 3); // Extract 'KM-'
-//   if (prefix !== 'KM-') throw new Error('Invalid format');
-
-//   const encodedPart = encoded.slice(3);
-//   const year = '20' + encodedPart.slice(0, 2);
-//   const hour = encodedPart[2] + encodedPart[7];
-//   const minute = encodedPart[4] + encodedPart[12];
-//   const month = encodedPart[3] + encodedPart[8];
-//   const day = encodedPart[5] + encodedPart[10];
-
-//   return new Date(`${year}-${month}-${day}T${hour}:${minute}:00`);
-// }
-
 let today = 'NA';
 
 const Main = () => {
-
 
   const [formData, setFormData] = useState({
   name: '',
@@ -56,27 +37,26 @@ const Main = () => {
   material: '',
   baseamount:40,
   quotation: 'NA'
-});
+  });
 
-const validate = () => {
-  if (!auth.currentUser) {
-    alert("You must be logged in to perform this action.");
-    return false;
-  }
-  
-  if (today === 'NA' || formData.quotation === 'NA') {
-    alert("No Quotation Number Assigned");
-    return false;
-  }
+  const validate = () => {
+    if (!auth.currentUser) {
+      alert("You must be logged in to perform this action.");
+      return false;
+    }
+    
+    if (today === 'NA' || formData.quotation === 'NA') {
+      alert("No Quotation Number Assigned");
+      return false;
+    }
 
-  if (formData.name === '' || formData.email === '' || formData.mobile === '' || formData.address === '' || formData.depth === '' || formData.width === '' || formData.diameter === '' || formData.material === '') {
-    alert("Some Details Missing");
-    return false;
-  }
+    if (formData.name === '' || formData.email === '' || formData.mobile === '' || formData.address === '' || formData.depth === '' || formData.width === '' || formData.diameter === '' || formData.material === '') {
+      alert("Some Details Missing");
+      return false;
+    }
 
-  return true;
-};
-
+    return true;
+  };
 
   const handlePrint = (event) => {
     if (!validate()) {
@@ -84,7 +64,7 @@ const validate = () => {
     }
   event.preventDefault();
   window.print();
-};
+  };
 
   const handleGetQuotation = (event) => {
     event.preventDefault();
@@ -96,69 +76,56 @@ const validate = () => {
       quotation: newQuotation
     });
   };
-  
-const handleSend = async () => {
-  console.log("started Printing", auth.currentUser.email)
-  if (!validate()) {
-    return;
-  }
-  
-  const element = document.querySelector('.quotation-wrapper'); 
-  const url = '';
-  html2canvas(element).then(canvas => {
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF();
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    const pdfBlob = pdf.output('blob');
-    
-    // Store the PDF in Firebase Storage
-    const storageRef = ref(storage, `quotations/${formData.name}_${formData.quotation}.pdf`);
-    uploadBytes(storageRef, pdfBlob).then(snapshot => {
-      getDownloadURL(snapshot.ref).then(url => {
-        // Store data in Firestore
-        const quotationsCollection = collection(db, 'quotations');
-        addDoc(quotationsCollection, {
-          userEmail: auth.currentUser.email,
-          clientName: formData.name,
-          date: new Date().toLocaleDateString(),
-          time: new Date().toLocaleTimeString(),
-          quotationNumber: formData.quotation,
-          depth: formData.depth,
-          diameter: formData.diameter,
-          mobile: formData.mobile,
-          clientEmail: formData.email,
-          clientAddress: formData.address,
-          pdfUrl: url
-        });
-        alert("Uploaded Sucessfully")
+
+  const handleSend = async (event) => {
+    event.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
+
+    const element = document.querySelector('.quotation-wrapper');
+
+    try {
+      const pdfBlob = await html2pdf().from(element).outputPdf('blob');
+
+      // Store the PDF in Firebase Storage
+      const storageRef = ref(storage, `quotations/${formData.name}_${formData.quotation}.pdf`);
+      const snapshot = await uploadBytes(storageRef, pdfBlob);
+      const url = await getDownloadURL(snapshot.ref);
+
+      // Check if the quotation already exists
+      const quotationsCollection = collection(db, 'quotations');
+      const q = query(quotationsCollection, where('quotationNumber', '==', formData.quotation));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        alert("Quotation Number already exists");
+        return;
+      }
+
+      // Store data in Firestore
+      await addDoc(quotationsCollection, {
+        userEmail: auth.currentUser.email,
+        clientName: formData.name,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString(),
+        quotationNumber: formData.quotation,
+        depth: formData.depth,
+        diameter: formData.diameter,
+        mobile: formData.mobile,
+        clientEmail: formData.email,
+        clientAddress: formData.address,
+        pdfUrl: url
       });
-    }).catch(error => {
-      console.error("Error uploading PDF: ", error);
-    });
-  }).catch(error => {
-    console.error("Error generating PDF: ", error);
-  });
 
-  const quotationsCollection = collection(db, 'quotations');
-  await addDoc(quotationsCollection, {
-    userEmail: auth.currentUser.email,
-    clientName: formData.name,
-    date: new Date().toLocaleDateString(),
-    time: new Date().toLocaleTimeString(),
-    quotationNumber: formData.quotation,
-    depth: formData.depth,
-    diameter: formData.diameter,
-    mobile: formData.mobile,
-    clientEmail: formData.email,
-    clientAddress: formData.address,
-    pdfUrl: url
-  });
-  console.log(quotationsCollection)
-};
+      alert("Document Uploaded Successfully!!!");
+    } catch (error) {
+      console.error("Error uploading PDF:", error);
+      alert("Some Error Occurred while uploading PDF");
+    }
+  };
 
   const [quot, setQuot] = useState(0);
   const [depthBreakdown, setDepthBreakdown] = useState([]);
@@ -229,6 +196,7 @@ const handleSend = async () => {
   return (
     <div className='main'>
       <div className='header'>
+        <span>Welcome {auth.currentUser.displayName}</span>
         <h1 className='title'>Drilling Quotation</h1>
         <button onClick={()=>signOut(auth)}>Logout</button>
       </div>
