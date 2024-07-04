@@ -4,6 +4,8 @@ import Logo from "../image/logo.png"
 import "../css/quotation.css"
 import { useNavigate } from 'react-router-dom';
 
+
+
 function encodeDateTime(today) {
   const dateTimeParts = today.split(",")[0].split("/");
   const timeParts = today.split(",")[1].trim().split(":");
@@ -14,7 +16,7 @@ function encodeDateTime(today) {
   const hours = timeParts[0].padStart(2, '0');
   const minutes = timeParts[1].padStart(2, '0');
 
-  return `KM-${year}${hours[0]}${month[0]}${minutes[0]}${day[0]}${month[1]}${hours[1]}${day[1]}${minutes[1]}`;
+  return `RB-${year}${hours[0]}${month[0]}${minutes[0]}${day[0]}${month[1]}${hours[1]}${day[1]}${minutes[1]}`;
 }
 
 function decodeDateTime(encoded) {
@@ -47,34 +49,36 @@ const Main = () => {
     mobile: '',
     diameter: '',
     depth: '',
-    material: ''
+    material: '',
+    baseamount:40
   });
 
   const [quot, setQuot] = useState(0);
   const [depthBreakdown, setDepthBreakdown] = useState([]);
 
   const calculateDepthBreakdown = () => {
+    const baseAmount = parseInt(formData.baseamount);
     const depthData = [
-      { depth: '0 to 100 ft', rate: 40 },
-      { depth: '101 to 200 ft', rate: 50 },
-      { depth: '201 to 300 ft', rate: 60 },
-      { depth: '301 to 400 ft', rate: 80 },
-      { depth: '401 to 500 ft', rate: 100 },
-      { depth: '501 to 600 ft', rate: 130 },
-      { depth: '601 to 700 ft', rate: 160 },
-      { depth: '701 to 800 ft', rate: 200 },
-      { depth: '801 to 900 ft', rate: 240 },
-      { depth: '901 to 1000 ft', rate: 290 },
-      { depth: '1001 to 1100 ft', rate: 340 },
-      { depth: '1101 to 1200 ft', rate: 400 },
-      { depth: '1201 to 1300 ft', rate: 450 },
-      { depth: '1301 to 1400 ft', rate: 530 },
-      { depth: '1401 to 1500 ft', rate: 600 },
-      { depth: '1501 to 1600 ft', rate: 680 },
-      { depth: '1601 to 1700 ft', rate: 780 },
-      { depth: '1701 to 1800 ft', rate: 880 },
-      { depth: '1801 to 1900 ft', rate: 990 },
-      { depth: '1901 to 2000 ft', rate: 1080 },
+      { depth: '0 to 100 ft', rate: baseAmount },
+      { depth: '101 to 200 ft', rate: baseAmount+10 },
+      { depth: '201 to 300 ft', rate: baseAmount+20 },
+      { depth: '301 to 400 ft', rate: baseAmount+40 },
+      { depth: '401 to 500 ft', rate: baseAmount+60 },
+      { depth: '501 to 600 ft', rate: baseAmount+90},
+      { depth: '601 to 700 ft', rate: baseAmount+120 },
+      { depth: '701 to 800 ft', rate: baseAmount+160},
+      { depth: '801 to 900 ft', rate: baseAmount+200 },
+      { depth: '901 to 1000 ft', rate: baseAmount+250},
+      { depth: '1001 to 1100 ft', rate: baseAmount+300 },
+      { depth: '1101 to 1200 ft', rate: baseAmount+360 },
+      { depth: '1201 to 1300 ft', rate: baseAmount+420 },
+      { depth: '1301 to 1400 ft', rate: baseAmount+490 },
+      { depth: '1401 to 1500 ft', rate: baseAmount+560 },
+      { depth: '1501 to 1600 ft', rate: baseAmount+640 },
+      { depth: '1601 to 1700 ft', rate: baseAmount+740 },
+      { depth: '1701 to 1800 ft', rate: baseAmount+840 },
+      { depth: '1801 to 1900 ft', rate: baseAmount+940 },
+      { depth: '1901 to 2000 ft', rate: baseAmount+1080 },
     ];
 
     let remainingDepth = formData.depth;
@@ -105,7 +109,7 @@ const Main = () => {
   React.useEffect(() => {
   today = new Date().toLocaleString();
   calculateDepthBreakdown();
-  }, [formData.depth]);
+  }, [formData.depth, formData.baseamount]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -131,6 +135,7 @@ const Main = () => {
       <div className='main-box'>
       
         <form className="quotation-form" >
+
           <div className='form-block1'>
             <label htmlFor="name">Client Name</label>
               <input type="text" name="name" placeholder='Eg. Company Name' required onChange={handleChange}/>
@@ -139,6 +144,7 @@ const Main = () => {
               <input type="text" placeholder='Eg. 14 street, Hyderabad 500001'  id="address" name="address" onChange={handleChange}/>
             
           </div>
+
           <div className='form-block2'>
           <label htmlFor="email">Email id:
             <input type="email" placeholder='Ex. xyz@gmail.com'  id="email" name="email" required onChange={handleChange}/>
@@ -148,7 +154,8 @@ const Main = () => {
             <input type="number" id="mobile" name="mobile" placeholder='Ex. 911111XX80' required onChange={handleChange}/>
             </label>
           </div>
-          <div className='form-block3'>
+
+          <div className='form-block2'>
           <label htmlFor="diameter">Diameter (in inches):
             <input type="number" id="diameter" name="diameter" placeholder='4 to 24 inch'  required onChange={handleChange}/>
           </label>
@@ -156,8 +163,15 @@ const Main = () => {
           <label htmlFor="depth">Depth (in feet):
             <input type="number" placeholder='1 - 2000 ft'  id="depth" name="depth" required onChange={handleChange}/>
           </label>
+          
           </div>
+
           <div className='form-block3'>
+          
+          <label htmlFor="baseamount">BaseAmount(₹):
+            <input type="text" placeholder='Default - ₹40'  id="baseamount" name="baseamount" onChange={handleChange}/>
+          </label>
+          
           <label htmlFor="material">
           <div className="select-wrapper">
             <select  id="material" name="material" onChange={handleChange}>
@@ -169,19 +183,28 @@ const Main = () => {
             </select>
             </div>
           </label>
+          </div>
+          <div className='form-block4'>
+          <button onClick={handlePrint}>Get Quotation Number</button>
+
           <button onClick={handlePrint}>Print PDF</button>
+          <button onClick={handlePrint}>Send</button>
+          
           </div>
         </form>
         <div className='preview'>
           <div className="quotation-wrapper">
             <header className="quotation-header">
-                <h1>Quotation</h1>
+                <h1>QUOTATION</h1>
+                <div className="logo">
+                    <img src={Logo} alt="Company Logo"/>
+                </div>
             </header>
             <hr/>
             <div className="company-info">
                 <div className="company-info-l">
                     <div className = "company-from">
-                      <span className="company-name">K.M. Reddy Borewell Motors</span>
+                      <span className="company-name">Radha Borewell Motors</span>
                 
                     <div className="company-contact">Flat No. 102, NM Residency, Road No-29
                     </div>
@@ -204,9 +227,7 @@ const Main = () => {
             </div>
 
             <div className="company-info-r">
-                <div className="logo">
-                    <img src={Logo} alt="Company Logo"/>
-                </div>
+
                 <div className="date-details">
                     <div className="contact">
                         <span>Contact</span>

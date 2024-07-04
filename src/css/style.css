@@ -85,9 +85,9 @@
   }
 
   .formContainer img {
-    width: 200px;
-    height: 200px;
+    height: 100px;
     padding-right: 10px;
+    object-fit: contain;
 
   }
 
@@ -95,11 +95,10 @@
     background-color: var(--c0);
     color: var(--c4);
     padding: 10px 30px;
-    width:fit-content;
     font-weight: bold;
     border: none;
     cursor: pointer;
-    
+    border-radius: 5px;
     transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
@@ -124,6 +123,23 @@
   }
 
 
+  .signinbutton{
+
+    width: 230px;
+    display: flex;
+    justify-content: space-between;
+    
+  }
+  
+  .signinbutton p{
+    
+    font-style: italic;
+
+  
+  }
+   
+
+
 
 /* Media query for screens with a maximum width of 768px (adjust as needed) */
 @media (max-width: 768px) {
@@ -135,7 +151,8 @@
     
   }
 }
- 
+
+
 .formContainer{
   input,
   span,

@@ -1,11 +1,15 @@
-
+.main{
+  border: 1px solid red;
+}
 
 .main-box{
   display: flex;
+  justify-content: space-around;
+  border: 1px solid red;
 }
 
 .preview{
-  transform: scale(0.7);
+  transform: scale(1);
   transform-origin: top left; 
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
   margin-left: 50px;
@@ -20,7 +24,10 @@
 
   padding: 20px;
   width: 400px;
-  height: 400px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   background-color: #ffffff;
   box-shadow: #0056b3 ;
   border-radius: 25px;
@@ -95,26 +102,30 @@
 }
 
 .form-block3{
-  /* border: 2px solid rgb(184, 209, 239); */
+  
   display: flex;
-  padding: 15px;
-  justify-content:space-between;
+  justify-content: space-around;
+  align-items: center;
 
 }
+.form-block4{
 
+  display: flex;
+  justify-content: space-around;
+  padding-top: 30px;
 
+}
 
 
 .main button {
   background-color: #0056b3;
   color: white;
-  height: 40px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   width:fit-content;
   font-weight: bold;
   border: none;
   cursor: pointer;
-  border-radius: 25px;
+  border-radius: 15px;
   transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
@@ -130,16 +141,15 @@
 }
 
 .main select {
-  height: 40px;
   padding: 5px 10px;
   font-size: 16px;
   color: #333;
   border: 1px solid #ccc;
-  border-radius: 25px;
+
   appearance: none;
   background-color: white;
   cursor: pointer;
-  border-radius: 25px;
+  border-radius: 15px;
   box-shadow: 5px 5px 15px #7699bf;
 }
 
@@ -180,12 +190,19 @@
 @media screen {
 
   @media (max-width: 768px) {
+
+    .main{
+      border: 1px solid red;
+    }
  
     .main-box{
       display: flex;
+      width: 700px;
+      border: 1px solid red;
       flex-direction: column;
       row-gap: 70px;
       align-items: center;
+      
     }
     
     .preview{
@@ -194,20 +211,20 @@
       box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
       margin-left: 0px;
       border: 1px solid rgb(218, 214, 251);
-      border-radius: 25px;
+      border-radius: 15px;
       box-shadow: #0056b3;
       overflow: hidden;
     }
     
     
     .quotation-form{
-    
+     
       padding: 20px;
-      width: 500px;
+      width: 520px;
       height: 400px;
       background-color: #ffffff;
       box-shadow: #0056b3 ;
-      border-radius: 25px;
+      border-radius: 15px;
       box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
       overflow: hidden;
     

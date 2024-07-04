@@ -15,7 +15,9 @@ body {
 }
 
 .quotation-header, .quotation-footer {
-    text-align: center;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
     /* border: 1px solid #ff0000; */
 }
 
@@ -73,7 +75,7 @@ hr{
 }
 
 .logo img{
-    width: 40mm;
+    width: 50mm;
     /* border: 1px solid #fb0da0; */
     
 }
