@@ -59,10 +59,10 @@ const Main = () => {
   };
 
   const handlePrint = (event) => {
+    event.preventDefault();
     if (!validate()) {
       return;
     }
-  event.preventDefault();
   window.print();
   };
 
@@ -113,10 +113,9 @@ const Main = () => {
         time: new Date().toLocaleTimeString(),
         quotationNumber: formData.quotation,
         depth: formData.depth,
-        diameter: formData.diameter,
+        amount:quot+quot*0.18,
         mobile: formData.mobile,
         clientEmail: formData.email,
-        clientAddress: formData.address,
         pdfUrl: url
       });
 
