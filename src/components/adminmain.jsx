@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, orderBy, getDocs, where, Timestamp } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { Dropdown, Table } from 'flowbite-react';
 import "../css/adminmain.css";
 import dayjs from 'dayjs';
+import { signOut } from 'firebase/auth'
+import Logo from "../image/logo.png"
 
 const Adminmain = () => {
   const [quotations, setQuotations] = useState([]);
@@ -60,34 +62,45 @@ const Adminmain = () => {
 
   return (
     <div className="admin">
-      <h1>Admin Portal</h1>
-      <div className="sort-buttons flex justify-between pb-4">
-        <Dropdown label="Sort by" inline>
-          <Dropdown.Item onClick={() => handleSortChange('today', 'asc')}>Today</Dropdown.Item>
-          <Dropdown.Item onClick={() => handleSortChange('yesterday', 'asc')}>Yesterday</Dropdown.Item>
-          <Dropdown.Item onClick={() => handleSortChange('userEmail', 'asc')}>Dealer Name Ascending</Dropdown.Item>
-          <Dropdown.Item onClick={() => handleSortChange('userEmail', 'desc')}>Dealer Name Descending</Dropdown.Item>
-          <Dropdown.Item onClick={() => handleSortChange('date', 'asc')}>Date Ascending</Dropdown.Item>
-          <Dropdown.Item onClick={() => handleSortChange('date', 'desc')}>Date Descending</Dropdown.Item>
-        </Dropdown>
-        <button className="bg-gray-800 text-white px-3 py-1.5 rounded-lg" onClick={navigateToHome}>Home</button>
-        <div className="flex items-center">
-          <input
-            type="text"
-            id="table-search"
-            className="block p-2 text-sm text-gray-900 border rounded-lg bg-gray-50"
-            placeholder="Search for items"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+      <div className='header'>
+        <div className='subhead1'>
+          <div className='subhead2'>
+          <h1>Admin Portal</h1>
+          </div>
+          <div className="subhead3">
+          <Dropdown label="Sort by" inline>
+            <Dropdown.Item onClick={() => handleSortChange('today', 'asc')}>Today</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortChange('yesterday', 'asc')}>Yesterday</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortChange('userEmail', 'asc')}>Dealer Name Ascending</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortChange('userEmail', 'desc')}>Dealer Name Descending</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortChange('date', 'asc')}>Date Ascending</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortChange('date', 'desc')}>Date Descending</Dropdown.Item>
+          </Dropdown>
+          <button className="bg-gray-800 text-white px-3 py-1.5 rounded-lg" onClick={navigateToHome}>Home</button>
+          <div className="flex items-center">
+            <input
+              type="text"
+              id="table-search"
+              className="block p-2 text-sm text-gray-900 border rounded-lg bg-gray-50"
+              placeholder="Search for items"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
           <button
-            onClick={handleSearch}
-            className="bg-blue-500 text-white px-3 py-1.5 rounded-lg ml-2"
-          >
-            Search
+              onClick={handleSearch}
+              className="bg-blue-500 text-white px-3 py-1.5 rounded-lg ml-2"
+            >
+              Search
           </button>
+          <button onClick={()=>signOut(auth)}>Logout</button>
+          </div>
+        </div>
+        <div className="subhead4">
+          <img src={Logo} alt="Company Logo"/>
         </div>
       </div>
+
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
         <Table hoverable>
           <Table.Head>

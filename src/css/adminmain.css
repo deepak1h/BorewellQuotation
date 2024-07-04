@@ -1,8 +1,64 @@
 .admin {
   padding: 20px;
   font-family: Arial, sans-serif;
-  max-width: 1200px; /* Set a max-width if you want to limit the width */
-  margin: 0 auto; /* Center the admin container */
+  margin: 0 auto; 
+  width: 1200px;
+}
+
+.subhead1{
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  /* border: 1px solid red; */
+  padding-bottom: 10px;
+
+}
+
+.subhead2{
+  display: flex;
+  width: 700px;
+  height: 70px;
+  /* border: 1px solid red; */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subhead3{
+  display: flex;
+  width: 700px;
+  height: 30px;
+  gap:30px;
+  /* border: 1px solid red; */
+  padding-left: 0px;
+
+}
+
+.subhead4{
+  width: 400px;
+  height: 100px;
+  img{
+  width: 400px;
+
+  
+}
+
+}
+
+
+
+input{
+
+  padding: 5px;
+  border: 1px solid var(--c2);
+  font-size: 16px;
+  border-radius: 5px;
+
+   &::placeholder {
+    color:#b7c4d1;
+    font: var(--fnt);
+    font-size: 14px;
+    
+  } 
 }
 
 .date-group {
@@ -10,9 +66,10 @@
 }
 
 .grid-container {
+
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  gap: 40px;
 }
 
 .quotation-card {
@@ -49,9 +106,9 @@
   margin-bottom: 20px;
 }
 
-.sort-buttons button {
-  padding: 10px 15px;
-  margin-right: 10px;
+button {
+  padding: 7px 15px;
+  height: 30px;
   border: none;
   background-color: #007BFF;
   color: white;
@@ -60,6 +117,6 @@
   transition: background-color 0.3s;
 }
 
-.sort-buttons button:hover {
+button:hover {
   background-color: #0056b3;
 }
