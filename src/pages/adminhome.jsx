@@ -1,5 +1,5 @@
 import React from 'react'
-import Main from '../components/main'
+import Adminmain from '../components/adminmain'
 
 
 import "../css/home.css"
@@ -10,7 +10,7 @@ function AdminHome() {
   
   return (
     <div className='home'>
-        Admin Home
+        <Adminmain/>
     </div>
   )
 }

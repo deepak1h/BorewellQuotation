@@ -1,0 +1,29 @@
+.admin {
+    padding: 20px;
+  }
+  
+  .date-group {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .quotation-card {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .quotation-card:last-child {
+    border-bottom: none;
+  }
+  
+  .quotation-card p {
+    margin: 5px 0;
+  }
+  
+  .quotation-card a {
+    color: blue;
+    text-decoration: underline;
+  }
+  

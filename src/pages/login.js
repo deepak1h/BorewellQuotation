@@ -2,27 +2,32 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from "../image/logo.png"
 import "../css/style.css"
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "../AuthContext";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+
+
 
 function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const { setCurrentUser } = useAuth();
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Simple validation
-    console.log(e)
-    
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("User logged in successfully");
-      navigate("/home");
-    } catch (error) {
+    const auth = getAuth();
+    await signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+      setCurrentUser(userCredential.user);
+        // Logged in
+        console.log("currentUser: ", userCredential.user)
+        navigate('/home');
+        // alert("User logged in successfully");
+      }).catch ((error) =>{
       alert("Invalid Credential");
-      console.log(error)
-    }
+      console.error('Error signing in:', error);
+    });
 
     
   };
