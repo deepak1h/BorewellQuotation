@@ -12,7 +12,6 @@ import html2pdf from 'html2pdf.js';
 function encodeDateTime(today) {
   const dateTimeParts = today.split(",")[0].split("/");
   const timeParts = today.split(",")[1].trim().split(":");
-
   const day = dateTimeParts[1].padStart(2, '0');
   const month = dateTimeParts[0].padStart(2, '0');
   const year = dateTimeParts[2].slice(-2);

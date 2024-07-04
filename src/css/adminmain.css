@@ -1,29 +1,65 @@
 .admin {
-    padding: 20px;
-  }
-  
-  .date-group {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  .quotation-card {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .quotation-card:last-child {
-    border-bottom: none;
-  }
-  
-  .quotation-card p {
-    margin: 5px 0;
-  }
-  
-  .quotation-card a {
-    color: blue;
-    text-decoration: underline;
-  }
-  
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  max-width: 1200px; /* Set a max-width if you want to limit the width */
+  margin: 0 auto; /* Center the admin container */
+}
+
+.date-group {
+  margin-bottom: 30px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.quotation-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #f9f9f9, #e2e2e2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+.quotation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.quotation-card p {
+  margin: 8px 0;
+}
+
+.quotation-card a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.quotation-card a:hover {
+  text-decoration: underline;
+}
+
+.sort-buttons {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.sort-buttons button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sort-buttons button:hover {
+  background-color: #0056b3;
+}
