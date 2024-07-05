@@ -74,6 +74,29 @@ hr{
     align-items:flex-start;
 }
 
+.signature{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.signature img{
+    width: 50mm;
+}
+
+.loading-bar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5px;
+    gap:10px
+}
+
+.loading-bar img{
+    width: 10mm;
+    height: 10mm;
+}
+
 .logo img{
     width: 50mm;
     /* border: 1px solid #fb0da0; */

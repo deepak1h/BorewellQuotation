@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import '../css/main.css';
 import Logo from "../image/logo.png"
+import Sign from "../image/sign.jpg"
+import Loading from "../image/loading.gif"
 import "../css/quotation.css"
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db, storage, auth } from '../firebase';
 import { signOut } from 'firebase/auth'
 import html2pdf from 'html2pdf.js';
-
 
 function encodeDateTime(today) {
   const dateTimeParts = today.split(",")[0].split("/");
@@ -25,6 +26,8 @@ function encodeDateTime(today) {
 let today = 'NA';
 
 const Main = () => {
+  const [verified, setVerified] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
   name: '',
@@ -48,15 +51,77 @@ const Main = () => {
       alert("No Quotation Number Assigned");
       return false;
     }
-
-    if (formData.name === '' || formData.email === '' || formData.mobile === '' || formData.address === '' || formData.depth === '' || formData.width === '' || formData.diameter === '' || formData.material === '') {
-      alert("Some Details Missing");
+  
+    const { name, email, mobile, address, depth, width, diameter, material } = formData;
+  
+    if (name === '') {
+      alert("Name is missing");
+      return false;
+    }
+  
+    if (email === '') {
+      alert("Email is missing");
+      return false;
+    }
+  
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      alert("Email is invalid. Ensure its valid (Special Char ._)");
       return false;
     }
 
+
+  
+    if (mobile === '') {
+      alert("Mobile number is missing");
+      return false;
+    }
+
+
+    const mobilePattern = /^[0-9]{10}$/;
+    if (!mobilePattern.test(mobile)) {
+      alert("Mobile number should be exactly 10 digits.");
+      return false;
+    }
+  
+    if (address === '') {
+      alert("Address is missing");
+      return false;
+    }
+  
+    if (depth === '') {
+      alert("Depth is missing");
+      return false;
+    }
+  
+    if (width === '') {
+      alert("Width is missing");
+      return false;
+    }
+  
+    if (diameter === '') {
+      alert("Diameter is missing");
+      return false;
+    }
+  
+    if (material === '') {
+      alert("Material is missing");
+      return false;
+    }
+  
+    if (isNaN(depth) || parseFloat(depth) > 2000) {
+      alert("Depth should be a number less than or equal to 2000.");
+      return false;
+    }
+  
+    if (isNaN(diameter) || parseFloat(diameter) < 4 || parseFloat(diameter) > 24) {
+      alert("Diameter should be a number between 4 and 24 inches.");
+      return false;
+    }
+  
     return true;
   };
-
+  
   const handlePrint = (event) => {
     event.preventDefault();
     if (!validate()) {
@@ -69,7 +134,7 @@ const Main = () => {
     event.preventDefault();
     today = new Date().toLocaleString();
     const newQuotation = encodeDateTime(today) 
-    
+    setVerified(false);
     setFormData({
       ...formData,
       quotation: newQuotation
@@ -83,9 +148,9 @@ const Main = () => {
     if (!validate()) {
       return;
     }
-
+    setVerified(true);
     const element = document.querySelector('.quotation-wrapper');
-
+    setLoading(true);
     try {
       const pdfBlob = await html2pdf().from(element).outputPdf('blob');
 
@@ -101,6 +166,7 @@ const Main = () => {
 
       if (!querySnapshot.empty) {
         alert("Quotation Number already exists");
+        setVerified(false);
         return;
       }
 
@@ -112,16 +178,18 @@ const Main = () => {
         time: new Date().toLocaleTimeString(),
         quotationNumber: formData.quotation,
         depth: formData.depth,
-        amount:quot+quot*0.18,
+        amount: quot+quot*0.18,
         mobile: formData.mobile,
         clientEmail: formData.email,
         pdfUrl: url
       });
-
       alert("Document Uploaded Successfully!!!");
     } catch (error) {
+      setVerified(false);
       console.error("Error uploading PDF:", error);
       alert("Some Error Occurred while uploading PDF");
+    }finally {
+      setLoading(false); // Reset loading state to false
     }
   };
 
@@ -243,20 +311,26 @@ const Main = () => {
           <div className="select-wrapper">
             <select  id="material" name="material" onChange={handleChange}>
               <option value="">Select Material</option>
-              <option value="steel">Steel</option>
-              <option value="pvc">PVC</option>
-              <option value="pe">Polyethylene</option>
+              <option value="Steel">Steel</option>
+              <option value="PVC">PVC</option>
+              <option value="PolyEthylene">Polyethylene</option>
               {/* Add more options here */}
             </select>
             </div>
           </label>
           </div>
+          {isLoading ? (
+        <div className="loading-bar">
+          <img src={Loading} alt="Loading" />
+          <p>Uploading...</p>
+        </div>
+      ) : (
           <div className='form-block4'>
           <button onClick={handleGetQuotation}>Get Quotation Number</button>
           <button onClick={handlePrint}>Print PDF</button>
           <button onClick={handleSend}>Send</button>
-          
           </div>
+          )}
         </form>
         <div className='preview'>
           <div className="quotation-wrapper">
@@ -311,7 +385,7 @@ const Main = () => {
         <hr/>
         <div className="order-desc">
             <span className="company-name">Order Description:</span>
-            <span> we want to make a borewell of depth {formData.depth} ft, diameter {formData.diameter} inch.</span>
+            <span> Specification of borewell depth <strong>{formData.depth}</strong> ft, diameter <strong>{formData.diameter}</strong> inch, material <strong>{formData.material}</strong></span>
 
         </div>
 
@@ -364,13 +438,21 @@ const Main = () => {
                     <span>₹{quot+quot*0.18} </span> </strong>
                 </div>
             </div>
-            <div className="signature">signature</div>
+            
+            
+          <div className="signature">
+          {verified && (
+            <img src={Sign} alt="Company Logo" />
+            )}
+            <span>signature</span>
+          </div>
+        
         </div>
 
         
         <hr/>
         <div className="quotation-footer">
-            <span>Above information is not an invoice and only an estimate of services describe above. This estimate is non-contractual. if you have any questions concernig this quote, please get back to us using the contact details above. Thank you for considering K.M. Reddy Borewell Motors for your needs. We look forward to doing business with you.</span>
+            <span>Above information is not an invoice and only an estimate of services describe above. This estimate is non-contractual. if you have any questions concernig this quote, please get back to us using the contact details above. Thank you for considering Radha Borewell and Motors for your needs. We look forward to doing business with you.</span>
         </div>
           </div>
         </div>
