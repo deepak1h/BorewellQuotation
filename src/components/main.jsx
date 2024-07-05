@@ -9,6 +9,7 @@ import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
 import { db, storage, auth } from '../firebase';
 import { signOut } from 'firebase/auth'
 import html2pdf from 'html2pdf.js';
+import { Navigate } from 'react-router-dom';
 
 function encodeDateTime(today) {
   const dateTimeParts = today.split(",")[0].split("/");
@@ -44,6 +45,7 @@ const Main = () => {
   const validate = () => {
     if (!auth.currentUser) {
       alert("You must be logged in to perform this action.");
+      Navigate("/")
       return false;
     }
     
@@ -166,7 +168,6 @@ const Main = () => {
 
       if (!querySnapshot.empty) {
         alert("Quotation Number already exists");
-        setVerified(false);
         return;
       }
 

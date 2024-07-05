@@ -8,13 +8,9 @@ body, html {
 
 .home {
     background-color: rgb(208, 229, 248);
-    width: 1050px;
     display: flex;
     margin: 10px;
-    margin-left: 100px;
-
-
-    
+    margin-left: 120px;
   }
 
 /* 

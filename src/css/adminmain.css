@@ -120,3 +120,8 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+button:active {
+  transform: scale(1.0); /* Scale down when the button is pressed */
+  transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}

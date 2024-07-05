@@ -130,8 +130,13 @@
 }
 
 .main button:hover {
-  transform: scale(1.1);
-} 
+  transform: scale(1.05);
+}
+
+.main button:active {
+  transform: scale(1.0); /* Scale down when the button is pressed */
+  transition: transform 0.1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
 
 
 .select-wrapper {
